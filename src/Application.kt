@@ -9,8 +9,9 @@ import org.slf4j.event.*
 import io.ktor.routing.*
 import io.ktor.http.*
 
-data class computeData(val exp: String, val val_1: String, val val_2: String)
-data class returnData(var result: String)
+data class ComputeData(val exp: String, val val_1: String, val val_2: String)
+data class ReturnData(var result: String)
+data class NumberTestData(var numberString: String);
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -30,16 +31,21 @@ fun Application.module(testing: Boolean = false) {
             call.respondText("Testroute Called!", contentType = ContentType.Text.Plain)
         }
         post(path = "/compute"){
-            val requestData = call.receive<computeData>()
+            val requestData = call.receive<ComputeData>()
             call.respond(compute(requestData))
+        }
+        post(path ="/numberTest"){
+            val requestData = call.receive<NumberTestData>()
+            var Test: AbsolutNumber = AbsolutNumber(requestData.numberString, 10);
+            call.respond(ReturnData(Test.toString()))
         }
     }
 }
 
-fun compute(inData: computeData): returnData {
+fun compute(inData: ComputeData): ReturnData {
     val var_1 = inData.val_1.toDouble()
     val var_2 = inData.val_2.toDouble()
-    var outData = returnData("")
+    var outData = ReturnData("")
     when{
         inData.exp.contains('+') -> {outData.result = (var_1+var_2).toString()}
         inData.exp.contains('-') -> {outData.result = (var_1-var_2).toString()}
