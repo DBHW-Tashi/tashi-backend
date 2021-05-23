@@ -8,6 +8,7 @@ import io.ktor.features.*
 import org.slf4j.event.*
 import io.ktor.routing.*
 import io.ktor.http.*
+import java.math.BigDecimal
 
 data class ComputeData(val exp: String, val val_1: String, val val_2: String)
 data class ReturnData(var result: String)
@@ -34,7 +35,11 @@ fun Application.module(testing: Boolean = false) {
             val requestData = call.receive<ComputeData>()
             call.respond(compute(requestData))
         }
-
+        get(path = "/test"){
+            var a = RationalNumber(BigDecimal(1),BigDecimal(7))
+            var b = RationalNumber(BigDecimal(1),BigDecimal(5))
+            call.respond((a-b).toString());
+        }
     }
 }
 

@@ -11,10 +11,14 @@ class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = B
             return RationalNumber(this.enumerator+b.enumerator, this.denominator);
         }
         val lcm:BigDecimal = lcm(this.denominator, b.denominator);
-        this.enumerator *= (lcm * this.denominator)
-        b.enumerator *= (lcm * b.denominator)
+        this.enumerator *= (lcm / this.denominator)
+        b.enumerator *= (lcm / b.denominator)
 
         return (RationalNumber(this.enumerator+b.enumerator, lcm));
+    }
+
+    operator fun minus(b : RationalNumber): RationalNumber{
+       return this + RationalNumber(BigDecimal(-1)*b.enumerator, b.denominator)
     }
 
     override fun toString(): String {
