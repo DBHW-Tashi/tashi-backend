@@ -36,7 +36,7 @@ fun Application.module(testing: Boolean = false) {
         }
         post(path ="/numberTest"){
             val requestData = call.receive<NumberTestData>()
-            var Test: AbsolutNumber = AbsolutNumber(requestData.numberString, 10);
+            var Test: RationalNumber = RationalNumber(requestData.numberString, 10);
             call.respond(ReturnData(Test.toString()))
         }
     }
