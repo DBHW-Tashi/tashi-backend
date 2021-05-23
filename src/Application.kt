@@ -12,7 +12,7 @@ import java.math.BigDecimal
 
 data class ComputeData(val exp: String, val val_1: String, val val_2: String)
 data class ReturnData(var result: String)
-data class NumberTestData(var numberString: String);
+data class NumberTestData(var numberString: String)
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -36,9 +36,10 @@ fun Application.module(testing: Boolean = false) {
             call.respond(compute(requestData))
         }
         get(path = "/test"){
-            var a = RationalNumber(BigDecimal(1),BigDecimal(7))
-            var b = RationalNumber(BigDecimal(1),BigDecimal(5))
-            call.respond((a/b).toString());
+            val a = RationalNumber(BigDecimal(1),BigDecimal(35))
+            val b = RationalNumber(BigDecimal(1),BigDecimal(5))
+
+            call.respond((a/b).getSimplified().toString())
         }
     }
 }

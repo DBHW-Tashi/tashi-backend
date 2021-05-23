@@ -8,13 +8,13 @@ class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = B
 
     operator fun plus(b : RationalNumber): RationalNumber{
         if(this.denominator == b.denominator){
-            return RationalNumber(this.enumerator+b.enumerator, this.denominator);
+            return RationalNumber(this.enumerator+b.enumerator, this.denominator)
         }
-        val lcm:BigDecimal = lcm(this.denominator, b.denominator);
+        val lcm:BigDecimal = lcm(this.denominator, b.denominator)
         this.enumerator *= (lcm / this.denominator)
         b.enumerator *= (lcm / b.denominator)
 
-        return (RationalNumber(this.enumerator+b.enumerator, lcm));
+        return (RationalNumber(this.enumerator+b.enumerator, lcm))
     }
 
     operator fun minus(b : RationalNumber): RationalNumber{
@@ -29,8 +29,28 @@ class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = B
         return RationalNumber(this.enumerator*b.denominator, this.denominator*b.enumerator)
     }
 
+    fun simplify(){
+        val gcd:BigDecimal = gcd(this.enumerator, this.denominator)
+        if (gcd > BigDecimal(1))
+        {
+            this.denominator /= gcd
+            this.enumerator /= gcd
+        }
+    }
+
+    fun getSimplified():RationalNumber{
+        var buffer = RationalNumber(this.enumerator, this.denominator)
+        val gcd:BigDecimal = gcd(this.enumerator, this.denominator)
+        if (gcd > BigDecimal(1))
+        {
+            buffer = RationalNumber(this.enumerator / gcd, this.denominator /gcd)
+        }
+
+        return buffer
+    }
+
     override fun toString(): String {
 
-        return this.enumerator.toString() + " / " + this.denominator.toString();
+        return this.enumerator.toString() + " / " + this.denominator.toString()
     }
 }
