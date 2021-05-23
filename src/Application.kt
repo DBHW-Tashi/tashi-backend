@@ -38,7 +38,7 @@ fun Application.module(testing: Boolean = false) {
         get(path = "/test"){
             var a = RationalNumber(BigDecimal(1),BigDecimal(7))
             var b = RationalNumber(BigDecimal(1),BigDecimal(5))
-            call.respond((a-b).toString());
+            call.respond((a/b).toString());
         }
     }
 }
@@ -49,9 +49,9 @@ fun compute(inData: ComputeData): ReturnData {
     var outData = ReturnData("")
     when{
         inData.exp.contains('+') -> {outData.result = (var_1+var_2).toString()}
-        //inData.exp.contains('-') -> {outData.result = (var_1-var_2).toString()}
-        //inData.exp.contains('*') -> {outData.result = (var_1*var_2).toString()}
-        //inData.exp.contains('/') -> {outData.result = (var_1/var_2).toString()}
+        inData.exp.contains('-') -> {outData.result = (var_1-var_2).toString()}
+        inData.exp.contains('*') -> {outData.result = (var_1*var_2).toString()}
+        inData.exp.contains('/') -> {outData.result = (var_1/var_2).toString()}
 
     }
     return outData

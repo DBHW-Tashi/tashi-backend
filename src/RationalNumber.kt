@@ -21,6 +21,14 @@ class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = B
        return this + RationalNumber(BigDecimal(-1)*b.enumerator, b.denominator)
     }
 
+    operator fun times(b: RationalNumber):RationalNumber{
+        return RationalNumber(this.enumerator*b.enumerator, this.denominator*b.denominator)
+    }
+
+    operator fun div(b: RationalNumber):RationalNumber{
+        return RationalNumber(this.enumerator*b.denominator, this.denominator*b.enumerator)
+    }
+
     override fun toString(): String {
 
         return this.enumerator.toString() + " / " + this.denominator.toString();
