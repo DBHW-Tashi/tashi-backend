@@ -34,23 +34,19 @@ fun Application.module(testing: Boolean = false) {
             val requestData = call.receive<ComputeData>()
             call.respond(compute(requestData))
         }
-        post(path ="/numberTest"){
-            val requestData = call.receive<NumberTestData>()
-            var Test: RationalNumber = RationalNumber(requestData.numberString, 10);
-            call.respond(ReturnData(Test.toString()))
-        }
+
     }
 }
 
 fun compute(inData: ComputeData): ReturnData {
-    val var_1 = inData.val_1.toDouble()
-    val var_2 = inData.val_2.toDouble()
+    val var_1 = RationalNumber(inData.val_1)
+    val var_2 = RationalNumber(inData.val_2)
     var outData = ReturnData("")
     when{
         inData.exp.contains('+') -> {outData.result = (var_1+var_2).toString()}
-        inData.exp.contains('-') -> {outData.result = (var_1-var_2).toString()}
-        inData.exp.contains('*') -> {outData.result = (var_1*var_2).toString()}
-        inData.exp.contains('/') -> {outData.result = (var_1/var_2).toString()}
+        //inData.exp.contains('-') -> {outData.result = (var_1-var_2).toString()}
+        //inData.exp.contains('*') -> {outData.result = (var_1*var_2).toString()}
+        //inData.exp.contains('/') -> {outData.result = (var_1/var_2).toString()}
 
     }
     return outData
