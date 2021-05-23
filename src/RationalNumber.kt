@@ -2,7 +2,7 @@ package com.renner
 
 import java.math.BigDecimal
 
-class RationalNumber(var denominator: BigDecimal, var enumerator: BigDecimal = BigDecimal(1)) {
+class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = BigDecimal(1)) {
 
     constructor(creationString: String) : this(BigDecimal(creationString)) {}
 
@@ -11,8 +11,8 @@ class RationalNumber(var denominator: BigDecimal, var enumerator: BigDecimal = B
             return RationalNumber(this.enumerator+b.enumerator, this.denominator);
         }
         val lcm:BigDecimal = lcm(this.denominator, b.denominator);
-        this.enumerator *= (lcm / this.denominator)
-        b.enumerator *= (lcm/b.denominator)
+        this.enumerator *= (lcm * this.denominator)
+        b.enumerator *= (lcm * b.denominator)
 
         return (RationalNumber(this.enumerator+b.enumerator, lcm));
     }
