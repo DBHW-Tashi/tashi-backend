@@ -40,11 +40,7 @@ class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = B
 
     fun getSimplified():RationalNumber{
         var buffer = RationalNumber(this.enumerator, this.denominator)
-        val gcd:BigDecimal = gcd(this.enumerator, this.denominator)
-        if (gcd > BigDecimal(1))
-        {
-            buffer = RationalNumber(this.enumerator / gcd, this.denominator /gcd)
-        }
+        buffer.simplify()
 
         return buffer
     }
