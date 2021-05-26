@@ -46,7 +46,9 @@ class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = B
     }
 
     override fun toString(): String {
-
+        if(this.denominator == BigDecimal(1)){
+            return this.enumerator.toString()
+        }
         return this.enumerator.toString() + " / " + this.denominator.toString()
     }
 }
