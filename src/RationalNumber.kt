@@ -2,9 +2,13 @@ package com.renner
 
 import java.math.BigDecimal
 
-class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = BigDecimal(1)) {
+class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = BigDecimal(1)) : ReturnsRationalNumber {
 
     constructor(creationString: String) : this(BigDecimal(creationString)) {}
+
+    override fun get(): RationalNumber {
+        return this;
+    }
 
     operator fun plus(b : RationalNumber): RationalNumber{
         if(this.denominator == b.denominator){

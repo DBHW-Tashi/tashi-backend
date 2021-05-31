@@ -2,6 +2,14 @@ package com.renner
 
 import java.math.BigDecimal
 
+enum class Operation {
+    Addition, Subtraction, Multiplication, Division
+}
+
+interface ReturnsRationalNumber {
+    fun get():RationalNumber
+}
+
 fun lcm (a:BigDecimal, b:BigDecimal):BigDecimal{
     return if (a == BigDecimal(0) || b == BigDecimal(0)) {
         BigDecimal(0)
