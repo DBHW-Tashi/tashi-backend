@@ -34,13 +34,25 @@ fun gcd(A:BigDecimal, B:BigDecimal):BigDecimal{
         b = A
     }
 
-    while (b != BigDecimal(0)) {
+    var factor = if (a.scale() >= b.scale()) a.scale() else b.scale()
+
+    if (factor > 0) {
+        a *= BigDecimal("10").pow(factor)
+        b *= BigDecimal("10").pow(factor)
+    }
+
+    while (b != BigDecimal("0.0")) {
         val buffer = b
         b = a.remainder(b)
         a = buffer
     }
 
-    return a
+    return if (factor > 0) {
+        a / BigDecimal(factor)
+    }
+    else {
+        a
+    }
 }
 
 fun parse(MathExpression:String):RationalNumber{
