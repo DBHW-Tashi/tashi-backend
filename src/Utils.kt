@@ -41,7 +41,8 @@ fun gcd(A:BigDecimal, B:BigDecimal):BigDecimal{
         b *= BigDecimal("10").pow(factor)
     }
 
-    while (b.compareTo(BigDecimal.ZERO) != 0) {
+
+    while (b != BigDecimal.ZERO) {
         val buffer = b
         b = a.remainder(b)
         a = buffer
