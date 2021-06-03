@@ -47,9 +47,10 @@ fun Application.module(testing: Boolean = false) {
             call.respond(returnThis)
         }
         get(path = "/test"){
+            val a = RationalNumber("5.4")
+            val b = RationalNumber("1.2")
 
-
-            call.respond(validateBrackets("(a+)a(+b)"))
+            call.respond((a*b).toString())
         }
     }
 }
