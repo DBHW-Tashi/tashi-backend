@@ -38,9 +38,10 @@ fun gcd(A:BigDecimal, B:BigDecimal):BigDecimal{
 
     if (factor > 0) {
         a *= BigDecimal("10").pow(factor)
+        a = a.stripTrailingZeros()
         b *= BigDecimal("10").pow(factor)
+        b = b.stripTrailingZeros()
     }
-
 
     while (b != BigDecimal.ZERO) {
         val buffer = b
@@ -49,7 +50,7 @@ fun gcd(A:BigDecimal, B:BigDecimal):BigDecimal{
     }
 
     return if (factor > 0) {
-        a / BigDecimal(factor)
+        a / BigDecimal("10").pow(factor)
     }
     else {
         a
