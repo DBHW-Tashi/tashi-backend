@@ -56,25 +56,83 @@ fun gcd(A:BigDecimal, B:BigDecimal):BigDecimal{
 }
 
 fun parse(MathExpression:String):RationalNumber{
-     for(i in 0 until OperatorChars.values().size){
-        val OperatorPosition = MathExpression.indexOf(OperatorChars.values()[i].sign)
-        if (OperatorPosition > -1){
-            when(OperatorChars.values()[i].sign){
-                '-' -> {
-                    return parse(MathExpression.substring(0,OperatorPosition)) - parse(MathExpression.substring(OperatorPosition+1))
-                }
-               '+' -> {
-                   return parse(MathExpression.substring(0,OperatorPosition)) + parse(MathExpression.substring(OperatorPosition+1))
-               }
-                '*' -> {
-                    return parse(MathExpression.substring(0,OperatorPosition)) * parse(MathExpression.substring(OperatorPosition+1))
-               }
-                '/' -> {
-                    return parse(MathExpression.substring(0,OperatorPosition)) / parse(MathExpression.substring(OperatorPosition+1))
-                }
-            }
-        }
+    var curMathExpression = MathExpression;
+    if(isEncasedByBrackets(curMathExpression)){
+        curMathExpression = curMathExpression.substring(1,curMathExpression.length-1);
+    }
+
+     for(i in 0 until OperatorChars.values().size){  //iterate through Operators
+         var indexLastOperatorFound:Int = 0;
+         for(j in 0 until curMathExpression.filter { it ==  OperatorChars.values()[i].sign}.count()) {    //iterate through instances of current Operator
+             val OperatorPosition = curMathExpression.indexOf(OperatorChars.values()[i].sign, indexLastOperatorFound+1)
+             indexLastOperatorFound = OperatorPosition;
+             if (OperatorPosition > -1 && !isPosInBrackets(curMathExpression, OperatorPosition)) {        //check if the Operator is found and not inside a bracket
+                 //parse the subExpression before and after the Operator and then apply the Operator to the results
+                 when (OperatorChars.values()[i].sign) {
+                     '-' -> {
+                         return parse(curMathExpression.substring(0, OperatorPosition)) - parse(curMathExpression.substring(OperatorPosition + 1))
+                     }
+                     '+' -> {
+                         return parse(curMathExpression.substring(0, OperatorPosition)) + parse(curMathExpression.substring(OperatorPosition + 1))
+                     }
+                     '*' -> {
+                         return parse(curMathExpression.substring(0, OperatorPosition)) * parse(curMathExpression.substring(OperatorPosition + 1))
+                     }
+                     '/' -> {
+                         return parse(curMathExpression.substring(0, OperatorPosition)) / parse(curMathExpression.substring(OperatorPosition + 1))
+                     }
+                 }
+             }
+         }
         continue
     }
-    return RationalNumber(MathExpression)
+    return RationalNumber(curMathExpression)
+}
+
+fun isEncasedByBrackets(input:String):Boolean{
+    if(input.length<=1){
+        return false
+    }
+    var level:Int = 0;
+    for (i in 0 until input.length-1){
+        if(input[i] == '('){
+            level ++;
+        }else if(input[i] == ')'){
+            level --;
+        }
+        if(level == 0){
+            return false
+        }
+    }
+    return true;
+}
+
+fun isPosInBrackets(str:String, pos:Int):Boolean{
+    var stringBeforePos = str.substring(0,pos);
+    if(stringBeforePos.filter { it == '(' }.count() == stringBeforePos.filter { it == ')' }.count()){
+        return false
+    }
+    return true
+}
+
+fun validateBrackets(input: String):Boolean{
+    var openingBrackets:Int = 0;
+    var closingBrackets:Int = 0;
+    for (i in input.indices){
+        when(input[i]){
+            '(' -> {
+                openingBrackets++;
+            }
+            ')' ->{
+                closingBrackets++;
+            }
+        }
+        if(closingBrackets>openingBrackets){
+            return false
+        }
+    }
+    if(openingBrackets != closingBrackets){
+        return false
+    }
+    return true
 }
