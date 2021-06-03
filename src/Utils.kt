@@ -7,8 +7,10 @@ enum class Operation {
 }
 
 enum class OperatorChars (val sign: Char){
+    SUBTRACT('-'),
     PLUS('+'),
-    MULTIPLY('*')
+    MULTIPLY('*'),
+    DIVIDE('/')
 }
 
 interface ReturnsRationalNumber {
@@ -50,18 +52,23 @@ fun gcd(A:BigDecimal, B:BigDecimal):BigDecimal{
 }
 
 fun parse(MathExpression:String):RationalNumber{
-     for(i in 0 until OperatorChars.values().size -1){
+     for(i in 0 until OperatorChars.values().size){
         val OperatorPosition = MathExpression.indexOf(OperatorChars.values()[i].sign)
         if (OperatorPosition > -1){
             when(OperatorChars.values()[i].sign){
+                '-' -> {
+                    return parse(MathExpression.substring(0,OperatorPosition)) - parse(MathExpression.substring(OperatorPosition+1))
+                }
                '+' -> {
                    return parse(MathExpression.substring(0,OperatorPosition)) + parse(MathExpression.substring(OperatorPosition+1))
                }
                 '*' -> {
-                    return parse(MathExpression.substring(0,OperatorPosition)) + parse(MathExpression.substring(OperatorPosition+1))
+                    return parse(MathExpression.substring(0,OperatorPosition)) * parse(MathExpression.substring(OperatorPosition+1))
                }
+                '/' -> {
+                    return parse(MathExpression.substring(0,OperatorPosition)) / parse(MathExpression.substring(OperatorPosition+1))
+                }
             }
-
         }
         continue
     }
