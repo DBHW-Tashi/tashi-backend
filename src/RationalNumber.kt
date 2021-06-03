@@ -1,10 +1,23 @@
 package com.renner
 
+import java.lang.Exception
 import java.math.BigDecimal
 
-class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = BigDecimal(1)) {
+class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = BigDecimal(1)) : ReturnsRationalNumber {
 
-    constructor(creationString: String) : this(BigDecimal(creationString)) {}
+    init{
+        if(this.denominator == BigDecimal("0")){
+            throw Exception("Division by Zero is not defined")
+        }
+    }
+
+    constructor(creationString: String) : this(BigDecimal(creationString))
+    constructor(creationDouble: Double) : this(BigDecimal(creationDouble.toString()))
+    constructor(creationInteger: Int) : this(BigDecimal(creationInteger.toString()))
+
+    override fun get(): RationalNumber {
+        return this;
+    }
 
     operator fun plus(b : RationalNumber): RationalNumber{
         if(this.denominator == b.denominator){
@@ -13,7 +26,6 @@ class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = B
         val lcm:BigDecimal = lcm(this.denominator, b.denominator)
         this.enumerator *= (lcm / this.denominator)
         b.enumerator *= (lcm / b.denominator)
-
         return (RationalNumber(this.enumerator+b.enumerator, lcm))
     }
 
