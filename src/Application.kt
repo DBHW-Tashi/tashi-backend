@@ -8,6 +8,7 @@ import io.ktor.features.*
 import org.slf4j.event.*
 import io.ktor.routing.*
 import io.ktor.http.*
+import java.lang.Exception
 import java.math.BigDecimal
 
 data class ComputeData(val exp: String, val val_1: String, val val_2: String)
@@ -33,7 +34,13 @@ fun Application.module(testing: Boolean = false) {
         }
         post(path = "/compute"){
             val requestData = call.receive<ComputeData>()
-            call.respond(compute(requestData))
+            var returnThis: ReturnData;
+            try{
+                returnThis = ReturnData(parse(requestData.exp).toString())
+            } catch (e:Exception){
+                returnThis = ReturnData(e.toString())
+            }
+            call.respond(returnThis)
         }
         get(path = "/test"){
             val a = RationalNumber("5.4")
@@ -48,17 +55,5 @@ fun Application.module(testing: Boolean = false) {
     }
 }
 
-fun compute(inData: ComputeData): ReturnData {
-    val var_1 = RationalNumber(inData.val_1)
-    val var_2 = RationalNumber(inData.val_2)
-    var outData = ReturnData("")
-    when{
-        inData.exp.contains('+') -> {outData.result = (var_1+var_2).toString()}
-        inData.exp.contains('-') -> {outData.result = (var_1-var_2).toString()}
-        inData.exp.contains('*') -> {outData.result = (var_1*var_2).toString()}
-        inData.exp.contains('/') -> {outData.result = (var_1/var_2).toString()}
 
-    }
-    return outData
-}
 

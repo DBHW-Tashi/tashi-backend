@@ -1,8 +1,15 @@
 package com.renner
 
+import java.lang.Exception
 import java.math.BigDecimal
 
 class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = BigDecimal(1)) : ReturnsRationalNumber {
+
+    init{
+        if(this.denominator == BigDecimal("0")){
+            throw Exception("Division by Zero is not defined")
+        }
+    }
 
     constructor(creationString: String) : this(BigDecimal(creationString))
     constructor(creationDouble: Double) : this(BigDecimal(creationDouble.toString()))
