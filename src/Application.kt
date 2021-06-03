@@ -11,7 +11,7 @@ import io.ktor.http.*
 import java.lang.Exception
 import java.math.BigDecimal
 
-data class ComputeData(val exp: String, val val_1: String, val val_2: String)
+data class ComputeData(val exp: String)
 data class ReturnData(var result: String)
 data class NumberTestData(var numberString: String)
 
