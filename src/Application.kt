@@ -35,22 +35,22 @@ fun Application.module(testing: Boolean = false) {
         post(path = "/compute"){
             val requestData = call.receive<ComputeData>()
             var returnThis: ReturnData;
-            try{
-                returnThis = ReturnData(parse(requestData.exp).toString())
-            } catch (e:Exception){
-                returnThis = ReturnData(e.toString())
+            if(!validateBrackets(requestData.exp)){
+                returnThis = ReturnData("Error: Invalid Brackets")
+            }else {
+                try {
+                    returnThis = ReturnData(parse(requestData.exp).toString())
+                } catch (e: Exception) {
+                    returnThis = ReturnData(e.toString())
+                }
             }
             call.respond(returnThis)
         }
         get(path = "/test"){
             val a = RationalNumber("5.4")
-            val b = RationalNumber("4")
+            val b = RationalNumber("1.2")
 
-            val c = RationalNumber(BigDecimal(2))
-            val foo = NumGroup(a, b, Operation.Addition)
-            val bar = NumGroup(foo, c, Operation.Multiplication)
-
-            call.respond(bar.get().toString())
+            call.respond((a*b).toString())
         }
     }
 }
