@@ -38,9 +38,9 @@ fun gcd(A:BigDecimal, B:BigDecimal):BigDecimal{
 
     if (factor > 0) {
         a *= BigDecimal("10").pow(factor)
-        a = a.stripTrailingZeros()
+        a = BigDecimal(a.stripTrailingZeros().toPlainString())
         b *= BigDecimal("10").pow(factor)
-        b = b.stripTrailingZeros()
+        b = BigDecimal(b.stripTrailingZeros().toPlainString())
     }
 
     while (b != BigDecimal.ZERO) {
