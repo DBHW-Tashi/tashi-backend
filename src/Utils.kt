@@ -2,19 +2,11 @@ package com.renner
 
 import java.math.BigDecimal
 
-enum class Operation {
-    Addition, Subtraction, Multiplication, Division
-}
-
 enum class OperatorChars (val sign: Char){
     SUBTRACT('-'),
     PLUS('+'),
     MULTIPLY('*'),
     DIVIDE('/')
-}
-
-interface ReturnsRationalNumber {
-    fun get():RationalNumber
 }
 
 fun lcm (a:BigDecimal, b:BigDecimal):BigDecimal{

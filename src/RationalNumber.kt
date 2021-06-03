@@ -3,7 +3,7 @@ package com.renner
 import java.lang.Exception
 import java.math.BigDecimal
 
-class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = BigDecimal(1)) : ReturnsRationalNumber {
+class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = BigDecimal(1)) {
 
     init{
         if(this.denominator == BigDecimal("0")){
@@ -14,10 +14,6 @@ class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = B
     constructor(creationString: String) : this(BigDecimal(creationString))
     constructor(creationDouble: Double) : this(BigDecimal(creationDouble.toString()))
     constructor(creationInteger: Int) : this(BigDecimal(creationInteger.toString()))
-
-    override fun get(): RationalNumber {
-        return this;
-    }
 
     operator fun plus(b : RationalNumber): RationalNumber{
         if(this.denominator == b.denominator){
