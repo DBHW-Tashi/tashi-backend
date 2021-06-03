@@ -36,10 +36,14 @@ fun Application.module(testing: Boolean = false) {
             call.respond(compute(requestData))
         }
         get(path = "/test"){
-            val a = RationalNumber(BigDecimal(1),BigDecimal(35))
-            val b = RationalNumber(BigDecimal(1),BigDecimal(5))
+            val a = RationalNumber("5.4")
+            val b = RationalNumber("4")
 
-            call.respond((a/b).getSimplified().toString())
+            val c = RationalNumber(BigDecimal(2))
+            val foo = NumGroup(a, b, Operation.Addition)
+            val bar = NumGroup(foo, c, Operation.Multiplication)
+
+            call.respond(bar.get().toString())
         }
     }
 }
