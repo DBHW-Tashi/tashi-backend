@@ -3,8 +3,8 @@ package com.renner
 import java.math.BigDecimal
 
 enum class OperatorChars (val sign: Char){
-    SUBTRACT('-'),
     PLUS('+'),
+    SUBTRACT('-'),
     MULTIPLY('*'),
     DIVIDE('/')
 }
