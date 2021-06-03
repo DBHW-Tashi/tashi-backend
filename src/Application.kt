@@ -49,16 +49,6 @@ fun Application.module(testing: Boolean = false) {
 }
 
 fun compute(inData: ComputeData): ReturnData {
-    val var_1 = RationalNumber(inData.val_1)
-    val var_2 = RationalNumber(inData.val_2)
-    var outData = ReturnData("")
-    when{
-        inData.exp.contains('+') -> {outData.result = (var_1+var_2).toString()}
-        inData.exp.contains('-') -> {outData.result = (var_1-var_2).toString()}
-        inData.exp.contains('*') -> {outData.result = (var_1*var_2).toString()}
-        inData.exp.contains('/') -> {outData.result = (var_1/var_2).toString()}
-
-    }
-    return outData
+    return ReturnData(parse(inData.exp).toString())
 }
 

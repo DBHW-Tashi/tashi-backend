@@ -6,6 +6,11 @@ enum class Operation {
     Addition, Subtraction, Multiplication, Division
 }
 
+enum class OperatorChars (val sign: Char){
+    PLUS('+'),
+    MULTIPLY('*')
+}
+
 interface ReturnsRationalNumber {
     fun get():RationalNumber
 }
@@ -42,4 +47,23 @@ fun gcd(A:BigDecimal, B:BigDecimal):BigDecimal{
     }
 
     return a
+}
+
+fun parse(MathExpression:String):RationalNumber{
+     for(i in 0 until OperatorChars.values().size -1){
+        val OperatorPosition = MathExpression.indexOf(OperatorChars.values()[i].sign)
+        if (OperatorPosition > -1){
+            when(OperatorChars.values()[i].sign){
+               '+' -> {
+                   return parse(MathExpression.substring(0,OperatorPosition)) + parse(MathExpression.substring(OperatorPosition+1))
+               }
+                '*' -> {
+                    return parse(MathExpression.substring(0,OperatorPosition)) + parse(MathExpression.substring(OperatorPosition+1))
+               }
+            }
+
+        }
+        continue
+    }
+    return RationalNumber(MathExpression)
 }
