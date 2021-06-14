@@ -27,6 +27,13 @@ fun Application.module(testing: Boolean = false) {
     install(ContentNegotiation) {
         jackson()
     }
+    install(CORS) {
+        method(HttpMethod.Post)
+        header(HttpHeaders.AccessControlAllowOrigin)
+        anyHost()
+        allowCredentials = true
+        allowNonSimpleContentTypes = true
+    }
 
     routing {
         get("/") {
@@ -34,7 +41,7 @@ fun Application.module(testing: Boolean = false) {
         }
         post(path = "/compute"){
             val requestData = call.receive<ComputeData>()
-            var returnThis: ReturnData;
+            var returnThis: ReturnData
             if(!validateBrackets(requestData.exp)){
                 returnThis = ReturnData("Error: Invalid Brackets")
             }else {
