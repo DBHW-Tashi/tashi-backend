@@ -44,6 +44,9 @@ class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = B
             this.denominator /= gcd
             this.enumerator /= gcd
         }
+
+        this.denominator = this.denominator.stripTrailingZeros()
+        this.enumerator = this.enumerator.stripTrailingZeros()
     }
 
     fun getSimplified():RationalNumber{
@@ -56,8 +59,8 @@ class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = B
     override fun toString(): String {
         this.simplify()
         if(this.denominator == BigDecimal(1)){
-            return this.enumerator.toString()
+            return this.enumerator.toPlainString()
         }
-        return this.enumerator.toString() + " / " + this.denominator.toString()
+        return this.enumerator.toPlainString() + "/" + this.denominator.toPlainString()
     }
 }

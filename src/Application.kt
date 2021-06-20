@@ -42,9 +42,9 @@ fun Application.module(testing: Boolean = false) {
         post(path = "/compute"){
             val requestData = call.receive<ComputeData>()
             var returnThis: ReturnData
-            if(!validateBrackets(requestData.exp)){
+            if (!validateBrackets(requestData.exp)){
                 returnThis = ReturnData("Error: Invalid Brackets")
-            }else {
+            } else {
                 try {
                     returnThis = ReturnData(parse(requestData.exp).toString())
                 } catch (e: Exception) {
