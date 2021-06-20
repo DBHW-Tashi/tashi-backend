@@ -50,7 +50,7 @@ fun gcd(A:BigDecimal, B:BigDecimal):BigDecimal{
     }
 
     return if (factor > 0) {
-        a / BigDecimal("10").pow(factor)
+        a.divide(BigDecimal("10").pow(factor))
     }
     else {
         a

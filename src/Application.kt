@@ -54,10 +54,9 @@ fun Application.module(testing: Boolean = false) {
             call.respond(returnThis)
         }
         get(path = "/test"){
-            val a = RationalNumber("5.4")
-            val b = RationalNumber("1.2")
-
-            call.respond((a*b).toString())
+            val a = RationalNumber("4.5")
+            val b = RationalNumber("1.5")
+            call.respond((a/b).toString())
         }
     }
 }
