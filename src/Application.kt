@@ -54,9 +54,8 @@ fun Application.module(testing: Boolean = false) {
             call.respond(returnThis)
         }
         get(path = "/test"){
-            println(BigDecimal("1e1")/BigDecimal("0.5"))
-            val a = BigDecimal("1")
-            val b = BigDecimal("0.5")
+            val a = BigDecimal("16")
+            val b = BigDecimal("0.4")
             call.respond((a/b).toString())
         }
     }
