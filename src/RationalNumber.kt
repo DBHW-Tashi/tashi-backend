@@ -39,7 +39,7 @@ class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = B
 
     fun simplify(){
         val gcd:BigDecimal = gcd(this.enumerator, this.denominator)
-        if (gcd > BigDecimal(1))
+        if (gcd > BigDecimal.ZERO)
         {
             this.denominator /= gcd
             this.enumerator /= gcd
