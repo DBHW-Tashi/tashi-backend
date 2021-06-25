@@ -54,9 +54,9 @@ fun Application.module(testing: Boolean = false) {
             call.respond(returnThis)
         }
         get(path = "/test"){
-            val a = BigDecimal("16")
-            val b = BigDecimal("0.4")
-            call.respond((a/b).toString())
+            val a = RationalNumber("4")
+            val b = RationalNumber("2")
+            call.respond((a.pow(b)).toString())
         }
     }
 }

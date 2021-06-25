@@ -37,6 +37,14 @@ class RationalNumber(var enumerator: BigDecimal, var denominator: BigDecimal = B
         return RationalNumber(this.enumerator*b.denominator, this.denominator*b.enumerator)
     }
 
+    fun pow(b: BigDecimal):RationalNumber {
+        return RationalNumber(this.enumerator.pow(b.toInt()), this.denominator.pow(b.toInt()))
+    }
+
+    fun pow(b: RationalNumber):RationalNumber {
+        return this.pow((b.enumerator/b.denominator))
+    }
+
     fun simplify(){
         val gcd:BigDecimal = gcd(this.enumerator, this.denominator)
         if (gcd > BigDecimal.ZERO)

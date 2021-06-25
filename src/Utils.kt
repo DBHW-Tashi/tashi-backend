@@ -6,7 +6,8 @@ enum class OperatorChars (val sign: Char){
     PLUS('+'),
     SUBTRACT('-'),
     MULTIPLY('*'),
-    DIVIDE('/')
+    DIVIDE('/'),
+    EXPONENT('^')
 }
 
 fun lcm (a:BigDecimal, b:BigDecimal):BigDecimal{
@@ -82,6 +83,9 @@ fun parse(MathExpression:String):RationalNumber{
                      }
                      '/' -> {
                          return parse(curMathExpression.substring(0, OperatorPosition)) / parse(curMathExpression.substring(OperatorPosition + 1))
+                     }
+                     '^' -> {
+                         return parse(curMathExpression.substring(0, OperatorPosition)).pow(parse(curMathExpression.substring(OperatorPosition + 1)))
                      }
                  }
              }
